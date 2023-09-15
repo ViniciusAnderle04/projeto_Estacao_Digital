@@ -1,36 +1,44 @@
 import { useState } from "react";
 import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Use "useNavigate" em vez de "Navigate"
 import arrowImg from "../../assets/arrow.svg";
 import { auth } from "../../services/firebaseConfig";
 
+
 import "./login.css";
-import Home from "../Home/Home";
 
 export function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); // Use "useNavigate" para obter a função de redirecionamento
 
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
 
-
   function handleSignIn(e) {
     e.preventDefault();
-    signInWithEmailAndPassword(email, password);
+    signInWithEmailAndPassword(email, password).then(() => {
+      // Redirecione após o login bem-sucedido
+    });
   }
 
-  if (loading) {
+  if (loading) {    console.log(auth.currentUser.email);
+
     return <p>carregando...</p>;
   }
+
   if (user) {
-   return <Home/>
-  
+    console.log(auth.currentUser.email);
+    navigate("/");
+
+    // Não é necessário retornar nada aqui, o redirecionamento será executado no handleSignIn.
+    return null;
   }
+
   return (
     <div className="cont">
       <header className="">
-        <h2>Por favor digite suas informações de login</h2>
+        <h2>Por favor, digite suas informações de login</h2>
       </header>
 
       <form>
@@ -55,7 +63,6 @@ export function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-
 
         <button className="button" onClick={handleSignIn}>
           Entrar <img src={arrowImg} alt="->" />

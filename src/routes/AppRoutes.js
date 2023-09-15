@@ -3,6 +3,8 @@ import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import Home from "../pages/Home/Home";
 import ResultadoProduto from "../pages/ResultadoProduto"
+import Teste from "../components/teste";
+import Cart from "../components/teste";
 
 export function AppRoutes() {
   return (
@@ -12,6 +14,8 @@ export function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/ResultadoProduto/:id" element={<ResultadoProduto/>}/>
+        <Route path="/cart"teste element={<Cart/>}/>
+
       </Routes>
     </BrowserRouter>
   );
