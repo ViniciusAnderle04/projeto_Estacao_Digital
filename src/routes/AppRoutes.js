@@ -3,8 +3,7 @@ import { Login } from "../pages/Login";
 import { Register } from "../pages/Register";
 import Home from "../pages/Home/Home";
 import ResultadoProduto from "../pages/ResultadoProduto"
-import Teste from "../components/teste";
-import Cart from "../components/teste";
+import Cart from "../components/cartFinal/Cart";
 
 export function AppRoutes() {
   return (

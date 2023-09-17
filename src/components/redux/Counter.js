@@ -24,7 +24,7 @@ const Counter = ({ quantity, handleQuantityChange }) => {
       <button onClick={handleDecrement}>-</button>
       <span>Quantidade: {localQuantity}</span>
       <button onClick={handleIncrement}>+</button>
-      <button onClick={confirmQuantity}>Confirmar</button>
+      <button onClick={confirmQuantity}>Salvar</button>
     </div>
   );
 };
