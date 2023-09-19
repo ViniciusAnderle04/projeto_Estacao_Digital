@@ -62,8 +62,6 @@ export function Register() {
           <p>Você já tem uma conta?</p>
           <Link to="/login">Acesse sua conta aqui</Link>
         </div>
-        <Link  className="voltar" to="/">Voltar para o inicio      
-        </Link>
       </form>
     </div>
   );

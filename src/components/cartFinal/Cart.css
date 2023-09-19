@@ -3,14 +3,6 @@
   display: grid;
   align-items: center;
   width: 100%;
-  
-  .prod{
-    background-color: #313131;
-    border: solid 2px #1612e9;
-    border-radius: 15px;
-    color: white;
-    margin: 10px;
-  }
 }
 .buycart button{
   padding: 5px;

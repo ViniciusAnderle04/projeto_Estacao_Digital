@@ -9,6 +9,7 @@ function Home() {
         <div>
             <Provider>
                 <Header />
+                <Carrinho />
                 <CartFinal />
                 <Footer />
             </Provider>
