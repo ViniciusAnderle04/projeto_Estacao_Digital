@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function Cart() {
   const [cartProducts, setCartProducts] = useState([]);
+  const [showAll, setShowAll] = useState(false); // Novo estado para controlar a exibição
   const { loading, setLoading } = useContext(AppContext);
 
   useEffect(() => {
@@ -66,32 +67,39 @@ function Cart() {
     }
   };
 
+  // Renderiza apenas os primeiros 3 produtos se showAll for falso
+  const productsToRender = showAll ? cartProducts : cartProducts.slice(0, 3);
+
   return (
     <div className='buycart'>
       <div className='header-cart'>
-      <h2>Carrinho de Compras</h2>
-      <Link to="/"><button>Adicionar mais itens ao carrinho</button></Link>
-      
+        <h2>Carrinho de Compras</h2>
+        <Link to="/"><button>Adicionar mais itens ao carrinho</button></Link>
       </div>
       {cartProducts.length === 0 ? (
-        <><h1 className='vazio'>O seu carrinho de compras está vazio!:( <br/>Continue realizando suas compras clicando no botão acima</h1>
-        </>
+        <h1 className='vazio'>O seu carrinho de compras está vazio!:( <br/>Continue realizando suas compras clicando no botão acima</h1>
       ) : (
-        cartProducts.map((product) => (
-          <div key={product.docId}>
-            <img src={product.thumbnail} alt={product.title} />
-            <span>
-              {product.title} <br />
-              <Counter
-                quantity={product.quantidade}
-                handleQuantityChange={(newQuantity) =>
-                  handleUpdateQuantity(product.docId, newQuantity)
-                }
-              />
-              <button onClick={() => handleRemoveProduct(product.docId)}>Remover</button>
-            </span>
-          </div>
-        ))
+        <>
+          {productsToRender.map((product) => (
+            <div className='prod' key={product.docId}>
+              <img className='prod' src={product.thumbnail} alt={product.title} />
+              <span>
+                {product.title} <br />
+                <Counter
+                  quantity={product.quantidade}
+                  handleQuantityChange={(newQuantity) =>
+                    handleUpdateQuantity(product.docId, newQuantity)
+                  }
+                />
+                <button onClick={() => handleRemoveProduct(product.docId)}>Remover</button>
+              </span>
+            </div>
+          ))}
+          {/* Renderize o botão "Ver Mais" se houver mais de 3 produtos */}
+          {cartProducts.length > 3 && !showAll && (
+            <button onClick={() => setShowAll(true)}>Ver Mais</button>
+          )}
+        </>
       )}
     </div>
   );
