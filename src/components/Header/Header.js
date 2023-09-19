@@ -5,6 +5,7 @@ import './Header.css';
 import { Link } from 'react-router-dom';
 import logo from "./logo.png"
 import { BiUser } from "react-icons/bi";
+import { BsBagFill } from 'react-icons/bs';
 
 function Header() {
   return (
@@ -15,7 +16,9 @@ function Header() {
       <Link to = "/login" className='teste'>      <BiUser size={25} />
 </Link>
         <Pesquisa />
-        <Link to="/cart"><CartButton /></Link>
+        <Link to = "/cart" className='sacola'>          <BsBagFill size={25}/>
+
+</Link>
       </div>
     </header>
   );

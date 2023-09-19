@@ -13,11 +13,15 @@ button{
       justify-content: center;
       margin: 10px;
 }
+<<<<<<< HEAD
+.buynow button{
+=======
 .buynow{
     padding: 16px;
     white-space: nowrap; 
 }
 .add{
+>>>>>>> 01ea96776af3e04f5e0a39ae20684b2b02964dbc
     padding: 16px;
 }
 button:hover{

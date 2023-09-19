@@ -34,10 +34,11 @@ export function Login() {
       });
   }
 
-  return (<>
+  return (
     <div className="cont">
-      
-      <h2>Por favor, digite suas informações de login</h2>
+      <header className="">
+        <h2>Por favor, digite suas informações de login</h2>
+      </header>
 
       <form>
         <div className="inputcont">
@@ -74,14 +75,10 @@ export function Login() {
             <div className="footer">
               <p>Você não tem uma conta?</p>
               <Link to="/register">Crie a sua conta aqui</Link>
-             
             </div>
-            <Link  className="voltar" to="/">Voltar para o inicio      
-        </Link>
           </>
         )}
       </form>
     </div>
-  </>
   );
 }

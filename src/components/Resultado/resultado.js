@@ -1,34 +1,33 @@
-import React, {useContext, useEffect, useState } from 'react';
-import './resultado.css'
+import React, { useContext, useEffect, useState } from 'react';
+import './resultado.css';
 import AppContext from '../../context/AppContext';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { fetchByID } from '../../api/fetchProducts';
 import formatCurrency from '../../utils/formatCurrency';
 import Loading from '../Loading/Loading';
 import Counter from '../redux/Counter';
-import Frete from '../Frete/frete'
-import Compra from '../Compra/compra'
+import Frete from '../Frete/frete';
 import { db } from '../../services/firebaseConfig';
 import { collection, addDoc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
-
-
-function ProductResult(){ 
-  const {loading, setLoading } = useContext(AppContext);
-  const {id}= useParams();
-  const [produto, setProduto] = useState({})
+function ProductResult() {
+  const { loading, setLoading } = useContext(AppContext);
+  const { id } = useParams();
+  const [produto, setProduto] = useState({});
   const [quantity, setQuantity] = useState(0);
   const auth = getAuth();
-  const [userID, setUserID] = useState(null);
+  const [userID, setUserID] = useState(null); // Estado para armazenar o userID
+
+  // Verificar se o usuário está autenticado
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const userID = user.uid;
-        setUserID(userID); 
+        setUserID(userID); // Armazena o userID no estado
       } else {
-        
-        setUserID(null); 
+        // O usuário não está autenticado
+        setUserID(null); // Limpa o userID se o usuário não estiver autenticado
       }
     });
   }, [auth]);
@@ -39,7 +38,7 @@ function ProductResult(){
       setQuantity(resultado.quantity || 0);
       setLoading(false);
     });
-  }, [auth]);
+  }, [id, setLoading]);
 
   const handleAddProductToFirestore = async (newQuantity) => {
     try {
@@ -57,25 +56,29 @@ function ProductResult(){
     }
   };
 
-  return(
-    (loading && <Loading /> ) || (
-    <section className='product-card'>
+  // Função para realizar o logout do usuário
+
+
+  return (
+    (loading && <Loading />) || (
+      <section className='product-card'>
         <img
-        src= {produto.thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
-        alt='product'
-        className='card-image'
+          src={produto.thumbnail.replace(/\w\.jpg/gi, 'W.jpg')}
+          alt='product'
+          className='card-image'
         />
         <div className='Card-info'>
           <h2 className=' card-title'>{produto.title}</h2>
           <h4 className='card-price'> {formatCurrency(produto.price, 'BRL')}</h4>
-          <span className='card-desc'>{produto.title}</span>
-          <Counter productId={id} quantity={quantity} handleQuantityChange={handleAddProductToFirestore}/>
-          <Frete/>
-          <Compra/>
+          <span>{produto.title}</span>
+          <Frete />
+          <Counter productId={id} quantity={quantity} handleQuantityChange={handleAddProductToFirestore} />
+          <Link to="/cart">Ir para o Carrinho</Link>
+          
         </div>
-    </section>
+      </section>
     )
   );
 }
-export default ProductResult;
 
+export default ProductResult;
